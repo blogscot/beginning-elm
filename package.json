@@ -1,0 +1,15 @@
+{
+  "name": "BeginningElm",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "nf start",
+    "api": "json-server --watch server/db.json",
+    "api:slow": "json-server --watch server/db.json --delay 2000",
+    "client": "elm-reactor"
+  },
+  "devDependencies": {
+    "foreman": "^2.0.0"
+  }
+}
