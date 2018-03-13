@@ -1,5 +1,6 @@
 module Types exposing (..)
 
+import Navigation exposing (Location)
 import RemoteData exposing (WebData)
 
 
@@ -18,9 +19,17 @@ type alias Post =
 
 type alias Model =
     { posts : WebData (List Post)
+    , currentRoute : Route
     }
 
 
 type Msg
     = FetchPosts
     | PostsReceived (WebData (List Post))
+    | OnLocationChange Location
+
+
+type Route
+    = PostsRoute
+    | PostRoute Int
+    | NotFoundRoute

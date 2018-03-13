@@ -1,2 +1,2 @@
 api: yarn api
-client: yarn client
+client: yarn client:live

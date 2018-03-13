@@ -10,3 +10,4 @@ If you check out the documentation for the http-server package we used earlier t
 
 1.  `http-server` supports CORS out of the box
 1.  `Firefox` browser does not support this, however, `Firefox Developer Edition` does!
+1.  `elm-live` can be used to handle Navigation - `elm-reactor` does not support this!

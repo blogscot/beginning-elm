@@ -7,7 +7,8 @@
     "start": "nf start",
     "api": "json-server --watch server/db.json",
     "api:slow": "json-server --watch server/db.json --delay 2000",
-    "client": "elm-reactor"
+    "client": "elm-reactor",
+    "client:live": "elm-live PostApp/App.elm --pushstate"
   },
   "devDependencies": {
     "foreman": "^2.0.0"

@@ -68,6 +68,10 @@ viewTableHeader =
 
 viewPost : Post -> Html Msg
 viewPost post =
+    let
+        postPath =
+            "/posts/" ++ toString post.id
+    in
     tr []
         [ td []
             [ text (toString post.id) ]
@@ -75,6 +79,7 @@ viewPost post =
             [ text post.title ]
         , td []
             [ a [ href post.author.url ] [ text post.author.name ] ]
+        , td [] [ a [ href postPath ] [ text "Edit" ] ]
         ]
 
 
