@@ -2,6 +2,7 @@ module Views.Edit exposing (view)
 
 import Html exposing (..)
 import Html.Attributes exposing (href, type_, value)
+import Html.Events exposing (onClick, onInput)
 import Types exposing (..)
 
 
@@ -24,6 +25,7 @@ editForm post =
             , input
                 [ type_ "text"
                 , value post.title
+                , onInput (UpdateTitle post.id)
                 ]
                 []
             ]
@@ -34,6 +36,7 @@ editForm post =
             , input
                 [ type_ "text"
                 , value post.author.name
+                , onInput (UpdateAuthorName post.id)
                 ]
                 []
             ]
@@ -44,12 +47,13 @@ editForm post =
             , input
                 [ type_ "text"
                 , value post.author.url
+                , onInput (UpdateAuthorUrl post.id)
                 ]
                 []
             ]
         , br [] []
         , div []
-            [ button []
+            [ button [ onClick (SubmitUpdatedPost post.id) ]
                 [ text "Submit" ]
             ]
         ]

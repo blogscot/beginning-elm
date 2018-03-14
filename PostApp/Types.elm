@@ -1,5 +1,6 @@
 module Types exposing (..)
 
+import Http
 import Navigation exposing (Location)
 import RemoteData exposing (WebData)
 
@@ -23,10 +24,23 @@ type alias Model =
     }
 
 
+type alias PostId =
+    Int
+
+
+type alias Updater =
+    String -> Post -> Post
+
+
 type Msg
     = FetchPosts
     | PostsReceived (WebData (List Post))
     | OnLocationChange Location
+    | UpdateTitle PostId String
+    | UpdateAuthorName PostId String
+    | UpdateAuthorUrl PostId String
+    | SubmitUpdatedPost PostId
+    | PostUpdated (Result Http.Error Post)
 
 
 type Route

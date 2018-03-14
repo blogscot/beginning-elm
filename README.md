@@ -11,3 +11,4 @@ If you check out the documentation for the http-server package we used earlier t
 1.  `http-server` supports CORS out of the box
 1.  `Firefox` browser does not support this, however, `Firefox Developer Edition` does!
 1.  `elm-live` can be used to handle Navigation - `elm-reactor` does not support this!
+1.  The `source-directories` defined in `elm-package.json` does not need to contain all the the project's subdirectories - it just needs to include the directory where 'Main.elm' is located.
