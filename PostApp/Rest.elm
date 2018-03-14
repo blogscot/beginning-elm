@@ -1,4 +1,4 @@
-module Rest exposing (fetchPostsCommand, updatePostCommand)
+module Rest exposing (deletePostCommand, fetchPostsCommand, updatePostCommand)
 
 import Http
 import Json.Decode exposing (Decoder, int, list, string)
@@ -45,6 +45,25 @@ updatePostRequest post =
         , url = "http://localhost:3000/posts/" ++ toString post.id
         , body = Http.jsonBody (postEncoder post)
         , expect = Http.expectJson postDecoder
+        , timeout = Nothing
+        , withCredentials = False
+        }
+
+
+deletePostCommand : Post -> Cmd Msg
+deletePostCommand post =
+    deletePostRequest post
+        |> Http.send PostDeleted
+
+
+deletePostRequest : Post -> Http.Request String
+deletePostRequest post =
+    Http.request
+        { method = "DELETE"
+        , headers = []
+        , url = "http://localhost:3000/posts/" ++ toString post.id
+        , body = Http.emptyBody
+        , expect = Http.expectString
         , timeout = Nothing
         , withCredentials = False
         }

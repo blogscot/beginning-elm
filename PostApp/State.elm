@@ -3,7 +3,7 @@ module State exposing (..)
 import Misc exposing (findPostById)
 import Navigation exposing (Location)
 import RemoteData exposing (WebData)
-import Rest exposing (fetchPostsCommand, updatePostCommand)
+import Rest exposing (deletePostCommand, fetchPostsCommand, updatePostCommand)
 import Routing exposing (extractRoute)
 import Types exposing (..)
 
@@ -57,6 +57,17 @@ update msg model =
 
         PostUpdated _ ->
             ( model, Cmd.none )
+
+        DeletePost postId ->
+            case findPostById postId model.posts of
+                Just post ->
+                    ( model, deletePostCommand post )
+
+                Nothing ->
+                    ( model, Cmd.none )
+
+        PostDeleted _ ->
+            ( model, fetchPostsCommand )
 
 
 updateField :

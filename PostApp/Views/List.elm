@@ -80,6 +80,9 @@ viewPost post =
         , td []
             [ a [ href post.author.url ] [ text post.author.name ] ]
         , td [] [ a [ href postPath ] [ text "Edit" ] ]
+        , td []
+            [ button [ onClick (DeletePost post.id) ] [ text "Delete" ]
+            ]
         ]
 
 

@@ -41,6 +41,8 @@ type Msg
     | UpdateAuthorUrl PostId String
     | SubmitUpdatedPost PostId
     | PostUpdated (Result Http.Error Post)
+    | DeletePost PostId
+    | PostDeleted (Result Http.Error String)
 
 
 type Route
