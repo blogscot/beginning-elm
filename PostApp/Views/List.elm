@@ -1,4 +1,4 @@
-module Views.ViewList exposing (view)
+module Views.List exposing (view)
 
 import Html exposing (..)
 import Html.Attributes exposing (href)

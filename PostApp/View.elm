@@ -4,14 +4,14 @@ import Html exposing (Html, h3, text)
 import Misc exposing (findPostById)
 import Types exposing (..)
 import Views.Edit
-import Views.ViewList
+import Views.List
 
 
 view : Model -> Html Msg
 view model =
     case model.currentRoute of
         PostsRoute ->
-            Views.ViewList.view model
+            Views.List.view model
 
         PostRoute id ->
             case findPostById id model.posts of
