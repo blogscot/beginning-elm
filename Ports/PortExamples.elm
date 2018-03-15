@@ -11,16 +11,28 @@ type alias Model =
 port sendData : String -> Cmd msg
 
 
+port receiveData : (Model -> msg) -> Sub msg
+
+
+subscriptions : Model -> Sub Msg
+subscriptions _ =
+    receiveData ReceivedDataFromJS
+
+
 view : Model -> Html Msg
 view model =
     div []
         [ button [ onClick SendDataToJS ]
             [ text "Send Data to JavaScript" ]
+        , br [] []
+        , br [] []
+        , text ("Data received from JavaScript: " ++ model)
         ]
 
 
 type Msg
     = SendDataToJS
+    | ReceivedDataFromJS Model
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -28,6 +40,9 @@ update msg model =
     case msg of
         SendDataToJS ->
             ( model, sendData "Hello JavaScript!" )
+
+        ReceivedDataFromJS data ->
+            ( data, Cmd.none )
 
 
 init : ( Model, Cmd Msg )
@@ -41,5 +56,5 @@ main =
         { init = init
         , view = view
         , update = update
-        , subscriptions = \_ -> Sub.none
+        , subscriptions = subscriptions
         }

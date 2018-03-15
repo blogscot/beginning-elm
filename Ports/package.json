@@ -1,0 +1,12 @@
+{
+  "name": "ports",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "clean": "rm elm.js",
+    "start": "yarn build && yarn client",
+    "build": "elm-make PortExamples.elm --output elm.js",
+    "client": "elm-reactor"
+  }
+}
