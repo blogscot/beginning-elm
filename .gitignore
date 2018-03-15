@@ -1,3 +1,5 @@
 elm-stuff/
 node_modules/
-index.html
+/index.html
+
+/Ports/elm.js
