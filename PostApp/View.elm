@@ -5,6 +5,7 @@ import Misc exposing (findPostById)
 import Types exposing (..)
 import Views.Edit
 import Views.List
+import Views.New
 
 
 view : Model -> Html Msg
@@ -23,6 +24,9 @@ view model =
 
         NotFoundRoute ->
             notFoundView
+
+        NewPostRoute ->
+            Views.New.view
 
 
 notFoundView : Html msg

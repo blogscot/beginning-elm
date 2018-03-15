@@ -3,14 +3,25 @@ module State exposing (..)
 import Misc exposing (findPostById)
 import Navigation exposing (Location)
 import RemoteData exposing (WebData)
-import Rest exposing (deletePostCommand, fetchPostsCommand, updatePostCommand)
+import Rest exposing (createPostCommand, deletePostCommand, fetchPostsCommand, updatePostCommand)
 import Routing exposing (extractRoute)
 import Types exposing (..)
 
 
+tempPostId : Int
+tempPostId =
+    -1
+
+
+emptyPost : Post
+emptyPost =
+    Author "" ""
+        |> Post tempPostId ""
+
+
 initialModel : Route -> Model
 initialModel route =
-    { posts = RemoteData.Loading, currentRoute = route }
+    { posts = RemoteData.Loading, currentRoute = route, newPost = emptyPost }
 
 
 init : Location -> ( Model, Cmd Msg )
@@ -69,6 +80,24 @@ update msg model =
         PostDeleted _ ->
             ( model, fetchPostsCommand )
 
+        NewPostTitle newTitle ->
+            updateNewPost newTitle setTitle model
+
+        NewAuthorName newName ->
+            updateNewPost newName setAuthorName model
+
+        NewAuthorUrl newUrl ->
+            updateNewPost newUrl setAuthorUrl model
+
+        CreateNewPost ->
+            ( model, createPostCommand model.newPost )
+
+        PostCreated (Ok post) ->
+            ( { model | posts = addNewPost post model.posts, newPost = emptyPost }, Cmd.none )
+
+        PostCreated (Err _) ->
+            ( model, Cmd.none )
+
 
 updateField :
     PostId
@@ -114,3 +143,27 @@ setAuthorUrl newUrl post =
             post.author
     in
     { post | author = { oldAuthor | url = newUrl } }
+
+
+updateNewPost :
+    String
+    -> (String -> Post -> Post)
+    -> Model
+    -> ( Model, Cmd Msg )
+updateNewPost newValue updateFunction model =
+    let
+        updatedNewPost =
+            updateFunction newValue model.newPost
+    in
+    ( { model | newPost = updatedNewPost }, Cmd.none )
+
+
+addNewPost : Post -> WebData (List Post) -> WebData (List Post)
+addNewPost newPost posts =
+    case RemoteData.toMaybe posts of
+        Just existingPosts ->
+            List.append existingPosts [ newPost ]
+                |> RemoteData.succeed
+
+        Nothing ->
+            posts

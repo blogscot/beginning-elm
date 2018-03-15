@@ -21,6 +21,7 @@ type alias Post =
 type alias Model =
     { posts : WebData (List Post)
     , currentRoute : Route
+    , newPost : Post
     }
 
 
@@ -43,9 +44,15 @@ type Msg
     | PostUpdated (Result Http.Error Post)
     | DeletePost PostId
     | PostDeleted (Result Http.Error String)
+    | NewPostTitle String
+    | NewAuthorName String
+    | NewAuthorUrl String
+    | CreateNewPost
+    | PostCreated (Result Http.Error Post)
 
 
 type Route
     = PostsRoute
     | PostRoute Int
     | NotFoundRoute
+    | NewPostRoute

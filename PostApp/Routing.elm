@@ -21,4 +21,5 @@ matchRoute =
         [ map PostsRoute top
         , map PostsRoute (s "posts")
         , map PostRoute (s "posts" </> int)
+        , map NewPostRoute (s "posts" </> s "new")
         ]
