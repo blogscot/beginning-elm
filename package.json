@@ -8,7 +8,8 @@
     "api": "json-server --watch server/db.json",
     "api:slow": "json-server --watch server/db.json --delay 2000",
     "client": "elm-reactor",
-    "client:live": "elm-live PostApp/App.elm --pushstate"
+    "client:live": "elm-live PostApp/App.elm --pushstate",
+    "client:prebuild": "elm-live PostApp/App.elm --pushstate --output=elm.js"
   },
   "devDependencies": {
     "foreman": "^2.0.0"

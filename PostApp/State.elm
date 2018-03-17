@@ -2,6 +2,7 @@ module State exposing (..)
 
 import Misc exposing (findPostById)
 import Navigation exposing (Location)
+import Ports exposing (storePosts)
 import RemoteData exposing (WebData)
 import Rest exposing (createPostCommand, deletePostCommand, fetchPostsCommand, updatePostCommand)
 import Routing exposing (extractRoute)
@@ -31,6 +32,19 @@ init location =
             Routing.extractRoute location
     in
     ( initialModel currentRoute, fetchPostsCommand )
+
+
+updateWithStorage : Msg -> Model -> ( Model, Cmd Msg )
+updateWithStorage msg model =
+    let
+        ( newModel, commands ) =
+            update msg model
+
+        extractedPosts =
+            RemoteData.toMaybe newModel.posts
+                |> Maybe.withDefault []
+    in
+    ( newModel, Cmd.batch [ commands, storePosts extractedPosts ] )
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )

@@ -1,7 +1,7 @@
 module App exposing (main)
 
 import Navigation exposing (Location)
-import State exposing (init, update)
+import State exposing (init, updateWithStorage)
 import Types exposing (..)
 import View exposing (view)
 
@@ -11,6 +11,6 @@ main =
     Navigation.program OnLocationChange
         { init = init
         , view = view
-        , update = update
+        , update = updateWithStorage
         , subscriptions = always Sub.none
         }
