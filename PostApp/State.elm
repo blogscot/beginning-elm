@@ -20,18 +20,26 @@ emptyPost =
         |> Post tempPostId ""
 
 
-initialModel : Route -> Model
-initialModel route =
-    { posts = RemoteData.Loading, currentRoute = route, newPost = emptyPost }
+initialModel : WebData (List Post) -> Route -> Model
+initialModel posts route =
+    { posts = posts, currentRoute = route, newPost = emptyPost }
 
 
-init : Location -> ( Model, Cmd Msg )
-init location =
+init : Maybe (List Post) -> Location -> ( Model, Cmd Msg )
+init flags location =
     let
         currentRoute =
             Routing.extractRoute location
+
+        posts =
+            case flags of
+                Just listOfPosts ->
+                    RemoteData.succeed listOfPosts
+
+                Nothing ->
+                    RemoteData.Loading
     in
-    ( initialModel currentRoute, fetchPostsCommand )
+    ( initialModel posts currentRoute, fetchPostsCommand )
 
 
 updateWithStorage : Msg -> Model -> ( Model, Cmd Msg )
