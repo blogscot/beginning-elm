@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="/bower_components/google-map/google-map.html">
+  <link rel="import" href="/bower_components/google-map/google-map-marker.html">
+
+  <style>
+    google-map {
+      height: 400px;
+    }
+  </style>
+
+  <title>Web Components</title>
+</head>
+
+<body>
+  <div id="elm-code-is-loaded-here"></div>
+  <script src="elm.js"></script>
+  <script>
+    var element = document.getElementById("elm-code-is-loaded-here");
+    var app = Elm.CustomElements.embed(element);
+  </script>
+</body>
+
+</html>
